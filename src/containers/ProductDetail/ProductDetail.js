@@ -3,7 +3,7 @@ import { Box,Button,Image,Text } from 'grommet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { selectedProduct,removeSelectedProduct } from '../../redux/actions/productActions'
+import { selectedProduct,removeSelectedProduct,fetchProduct } from '../../redux/actions/productActions'
 
 const ProductDetail = () => {
     const product = useSelector((state) => state.allProducts.product)
@@ -11,16 +11,16 @@ const ProductDetail = () => {
     const dispatch = useDispatch();
     const { productId } = useParams()
 
-    const fetchProductDetail = async () => {
-        const response = await axios
-            .get(`https://fakestoreapi.com/products/${productId}`)
-            .catch((err) => console.log(err))
-        dispatch(selectedProduct(response.data))
-    }
+    // const fetchProductDetail = async () => {
+    //     const response = await axios
+    //         .get(`https://fakestoreapi.com/products/${productId}`)
+    //         .catch((err) => console.log(err))
+    //     dispatch(selectedProduct(response.data))
+    // }
 
     useEffect(() => 
     { 
-        if(productId && productId !== "") fetchProductDetail();
+        if(productId && productId !== "") dispatch(fetchProduct(productId));
 
         return ()=>(
             dispatch(removeSelectedProduct())
