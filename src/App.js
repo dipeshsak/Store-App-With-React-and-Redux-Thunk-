@@ -1,24 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { Grommet } from 'grommet';
+import {BrowserRouter as Router,Route,Routes} from 'react-router-dom';
+import Header from './containers/Header/Header';
+import ProductDetail from './containers/ProductDetail/ProductDetail';
+import ProductListing from './containers/ProductListing/ProductListing';
+
+const theme = {
+  global: {
+    font: {
+      family: 'Roboto',
+      size: '18px',
+      height: '20px',
+    },
+  },
+};
 
 function App() {
   return (
+    <Grommet theme={theme}>
+<Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <Routes>
+      <Route path="/" exact element={<ProductListing/>}/>
+      <Route path="/product/:productId" exact element={<ProductDetail/>}/>
+      <Route>404 Not Found!</Route>
+      </Routes>
     </div>
+    </Router>
+    </Grommet>
   );
 }
 
